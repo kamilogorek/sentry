@@ -14,7 +14,6 @@ exports[`TextField render() renders with form context 1`] = `
       onChange={[Function]}
       required={false}
       type="text"
-      value="fieldValue"
     />
   </div>
 </div>
@@ -34,7 +33,6 @@ exports[`TextField render() renders without form context 1`] = `
       onChange={[Function]}
       required={false}
       type="text"
-      value=""
     />
   </div>
 </div>

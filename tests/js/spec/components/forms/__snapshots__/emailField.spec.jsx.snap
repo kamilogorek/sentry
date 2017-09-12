@@ -14,7 +14,6 @@ exports[`EmailField render() renders 1`] = `
       onChange={[Function]}
       required={false}
       type="email"
-      value=""
     />
   </div>
 </div>
@@ -34,7 +33,6 @@ exports[`EmailField render() renders with form context 1`] = `
       onChange={[Function]}
       required={false}
       type="email"
-      value="foo@example.com"
     />
   </div>
 </div>
@@ -54,7 +52,6 @@ exports[`EmailField render() renders with value 1`] = `
       onChange={[Function]}
       required={false}
       type="email"
-      value="foo@example.com"
     />
   </div>
 </div>
