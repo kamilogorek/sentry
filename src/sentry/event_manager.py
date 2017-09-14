@@ -844,11 +844,25 @@ class EventManager(object):
         # should be better tested/reviewed
         if existing_group_id is None:
             kwargs['score'] = ScoreClause.calculate(1, kwargs['last_seen'])
-            with transaction.atomic():
-                short_id = project.next_short_id()
-                group, group_is_new = Group.objects.create(
-                    project=project, short_id=short_id, **kwargs
-                ), True
+            try:
+                with transaction.atomic():
+                    short_id = project.next_short_id()
+                    group, group_is_new = Group.objects.create(
+                        project=project, short_id=short_id, **kwargs
+                    ), True
+            except IntegrityError as exc:
+                # it's possible the release was deleted between
+                # when we queried for the release and now
+                first_release = kwargs.pop('first_release', None)
+                if first_release is None:
+                    raise exc
+                else:
+                    with transaction.atomic():
+                        short_id = project.next_short_id()
+                        group, group_is_new = Group.objects.create(
+                            project=project, short_id=short_id, **kwargs
+                        ), True
+
         else:
             group = Group.objects.get(id=existing_group_id)
 
